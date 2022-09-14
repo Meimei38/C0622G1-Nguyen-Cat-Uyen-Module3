@@ -79,6 +79,7 @@ select * from student;
 
 -- Hiển thị các thông tin: StudentName, SubName, Mark. Dữ liệu sắp xếp theo điểm thi (mark) giảm dần. nếu trùng sắp theo tên tăng dần.
 select student_name, subject_name, mark 
-from student join mark on student.id = mark.student_id and mark join subject on mark.subject_id = subject.id 
+from student join mark on student.id = mark.student_id 
+join subject on mark.subject_id = subject.id 
 order by mark.mark desc, student_name asc;
 
