@@ -78,8 +78,8 @@ foreign key (ma_loai_dich_vu) references loai_dich_vu(ma_loai_dich_vu)
 );
 create table hop_dong(
 ma_hop_dong int auto_increment primary key,
-ngay_lam_hop_dong datetime,
-ngay_ket_thuc datetime,
+ngay_lam_hop_dong date,
+ngay_ket_thuc date,
 tien_dat_coc double,
 ma_nhan_vien int,
 foreign key (ma_nhan_vien) references nhan_vien (ma_nhan_vien),

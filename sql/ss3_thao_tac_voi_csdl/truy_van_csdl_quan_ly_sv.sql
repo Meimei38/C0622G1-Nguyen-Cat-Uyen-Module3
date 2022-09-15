@@ -73,6 +73,7 @@ select * from class where month(start_date) =12;
 select * from subject where credit between 3 and 5;
 
 -- Thay đổi mã lớp(ClassID) của sinh viên có tên ‘Hung’ là 2.
+set SQL_SAFE_UPDATES = 0;
 update student
 set class_id = 2 where student_name ="Hung";
 select * from student;
