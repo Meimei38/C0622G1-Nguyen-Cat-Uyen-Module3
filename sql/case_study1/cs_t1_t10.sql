@@ -1,7 +1,7 @@
 use co_so_du_lieu_furama;
 -- 2.	Hiển thị thông tin của tất cả nhân viên có trong hệ thống có tên bắt đầu là một trong các ký tự “H”, “T” hoặc “K” và có tối đa 15 kí tự.
 select * from nhan_vien
-where (ho_ten regexp '^[H,T,K]') and (char_length(ho_ten) <=15);
+where(ho_ten REGEXP '^[H,T,K]') and (CHAR_LENGTH(ho_ten) <= 15);
 
 -- 3.	Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở “Đà Nẵng” hoặc “Quảng Trị”.
 select *  from khach_hang 
@@ -24,17 +24,24 @@ order by count(hop_dong.ma_khach_hang) asc;
 
 DROP VIEW IF EXISTS task_5;
 create view task_5 as
-select distinct kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, dv.ten_dich_vu,hd.ngay_lam_hop_dong, ifnull((dv.chi_phi_thue+hdct.so_luong*dvdk.gia),0) as tong_tien from khach_hang as kh 
+select distinct kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, dv.ten_dich_vu,hd.ngay_lam_hop_dong, ifnull((dv.chi_phi_thue+ifnull(sum(hdct.so_luong*dvdk.gia),0)),0) as tong_tien from khach_hang as kh 
 left join loai_khach as lk on kh.ma_loai_khach = lk.ma_loai_khach
 left join hop_dong as hd on kh.ma_khach_hang = hd.ma_khach_hang
 left join dich_vu as dv on hd.ma_dich_vu = dv.ma_dich_vu
 left join hop_dong_chi_tiet as hdct on hdct.ma_hop_dong = hd.ma_hop_dong
-left join dich_vu_di_kem as dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem;
+left join dich_vu_di_kem as dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+group by kh.ma_khach_hang;
 select * from task_5;
 
 -- 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu 
 -- của tất cả các loại dịch vụ chưa từng được khách hàng thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
+
 select dv.ma_dich_vu, dv.ten_dich_vu, dv.dien_tich, dv.chi_phi_thue, ldv.ten_loai_dich_vu from dich_vu dv
-join loai_dich_vu ldv on dv.
+join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
+where dv.ma_dich_vu not in 
+(select dv.ma_dich_vu from dich_vu dv 
+join hop_dong as hd on dv.ma_dich_vu = hd.ma_dich_vu
+where (quarter(hd.ngay_lam_hop_dong) = 1) 
+group by dv.ma_dich_vu);
 
 
