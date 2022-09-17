@@ -1,4 +1,5 @@
 use co_so_du_lieu_furama;
+
 -- 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
 select dvdk.* from dich_vu_di_kem as dvdk 
 join hop_dong_chi_tiet as hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
@@ -23,3 +24,14 @@ and (dv.ma_dich_vu not in (select dv.ma_dich_vu from dich_vu as dv
 join hop_dong as hd on dv.ma_dich_vu = hd.ma_dich_vu
 where (quarter(hd.ngay_lam_hop_dong) in (1,2)) and (year (hd.ngay_lam_hop_dong) = 2021)))
 group by hd.ma_hop_dong;
+
+-- 13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+select * from dich_vu_di_kem as dvdk 
+join hop_dong_chi_tiet as hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+where count(hdct.ma_dich_vu_di_kem) = (select max(count(hdct.ma_dich_vu_di_kem)) from hop_dong_chi_tiet)
+group  by hdct.ma_dich_vu_di_kem;
+select kh.ma_khach_hang from khach_hang as kh
+join hop_dong as hd on kh.ma_khach_hang = hd.ma_khach_hang;
+select sum(hdct.ma_dich_vu_di_kem), ma_dich_vu_di_kem from hop_dong_chi_tiet as hdct
+group  by hdct.ma_dich_vu_di_kem;
+
