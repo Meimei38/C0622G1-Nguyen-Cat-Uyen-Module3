@@ -24,13 +24,13 @@ order by count(hop_dong.ma_khach_hang) asc;
 
 DROP VIEW IF EXISTS task_5;
 create view task_5 as
-select distinct kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, dv.ten_dich_vu,hd.ngay_lam_hop_dong, ifnull((dv.chi_phi_thue+ifnull(sum(hdct.so_luong*dvdk.gia),0)),0) as tong_tien from khach_hang as kh 
+select kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, dv.ten_dich_vu,hd.ngay_lam_hop_dong, ifnull((dv.chi_phi_thue+ifnull(sum(hdct.so_luong*dvdk.gia),0)),0) as tong_tien from khach_hang as kh 
 left join loai_khach as lk on kh.ma_loai_khach = lk.ma_loai_khach
 left join hop_dong as hd on kh.ma_khach_hang = hd.ma_khach_hang
 left join dich_vu as dv on hd.ma_dich_vu = dv.ma_dich_vu
 left join hop_dong_chi_tiet as hdct on hdct.ma_hop_dong = hd.ma_hop_dong
 left join dich_vu_di_kem as dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
-group by kh.ma_khach_hang;
+group by kh.ma_khach_hang, hd.ma_hop_dong;
 select * from task_5;
 
 -- 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu 
