@@ -13,29 +13,44 @@ group by ma_dich_vu_di_kem;
 -- (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc 
 -- của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021.
 
-select hd.ma_hop_dong, nv.ho_ten as nhan_vien, kh.ho_ten as khach_hang, kh.so_dien_thoai, dv.ten_dich_vu, dv.ma_dich_vu, ifnull(sum(hdct.so_luong),0) as so_luong_dich_vu_di_kem
+select hd.ma_hop_dong, nv.ho_ten as nhan_vien, kh.ho_ten as khach_hang, kh.so_dien_thoai, 
+dv.ten_dich_vu, dv.ma_dich_vu, ifnull(sum(hdct.so_luong),0) as so_luong_dich_vu_di_kem
 from hop_dong as hd 
-join nhan_vien as nv on hd.ma_nhan_vien = nv.ma_nhan_vien
-join khach_hang as kh on hd.ma_khach_hang = kh.ma_khach_hang
+left join nhan_vien as nv on hd.ma_nhan_vien = nv.ma_nhan_vien
+left join khach_hang as kh on hd.ma_khach_hang = kh.ma_khach_hang
 left join hop_dong_chi_tiet as hdct on hdct.ma_hop_dong = hd.ma_hop_dong
-join dich_vu as dv on dv.ma_dich_vu = hd.ma_dich_vu
+left join dich_vu as dv on dv.ma_dich_vu = hd.ma_dich_vu
 where ((quarter(hd.ngay_lam_hop_dong) = 4) and (year (hd.ngay_lam_hop_dong) = 2020))
-and (dv.ma_dich_vu not in (select dv.ma_dich_vu from dich_vu as dv 
+and (dv.ma_dich_vu not in 
+(select dv.ma_dich_vu from dich_vu as dv 
 join hop_dong as hd on dv.ma_dich_vu = hd.ma_dich_vu
-where (quarter(hd.ngay_lam_hop_dong) in (1,2)) and (year (hd.ngay_lam_hop_dong) = 2021)))
+where (quarter(hd.ngay_lam_hop_dong) in (1,2)) and (year (hd.ngay_lam_hop_dong) = 2021)
+)
+)
 group by hd.ma_hop_dong;
 
--- 13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+-- 13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
+-- (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+-- dùng >= all
 
-drop view if exists v_sum_ma_dich_vu;
-
-create view v_sum_ma_dich_vu as
 select dvdk.*, sum(hdct.so_luong) as so_luong_dich_vu_di_kem from dich_vu_di_kem as dvdk 
 join hop_dong_chi_tiet as hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
-group  by hdct.ma_dich_vu_di_kem;
+group  by hdct.ma_dich_vu_di_kem
+having sum(hdct.so_luong) >= all (select sum(hdct.so_luong) as so_luong_dich_vu_di_kem from dich_vu_di_kem as dvdk 
+join hop_dong_chi_tiet as hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+group  by hdct.ma_dich_vu_di_kem);
 
-select * from v_sum_ma_dich_vu
-where v_sum_ma_dich_vu.so_luong_dich_vu_di_kem = (select max(so_luong_dich_vu_di_kem) from v_sum_ma_dich_vu);
+/* cách tạo view ảo (view ảo > all > view thật), không nên sử dụng view thật vì tốn bộ nhớ, 
+dùng view ảo xong câu truy vấn sẽ tự xóa
+
+select dvdk.*, sum(hdct.so_luong) as so_luong_dich_vu_di_kem from dich_vu_di_kem as dvdk 
+join hop_dong_chi_tiet as hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+group  by hdct.ma_dich_vu_di_kem
+having sum(hdct.so_luong) = (select max(so_luong_dich_vu_di_kem) from 
+(select sum(hdct.so_luong) as so_luong_dich_vu_di_kem from dich_vu_di_kem as dvdk 
+join hop_dong_chi_tiet as hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+group  by hdct.ma_dich_vu_di_kem) as view_ne);
+*/
 
 -- 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. 
 -- Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem).
