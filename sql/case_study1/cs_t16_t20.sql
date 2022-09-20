@@ -49,8 +49,10 @@ select * from dich_vu_di_kem;
  -- 20.	Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, 
  -- thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.
  select 'nhan vien' as type,  ma_nhan_vien as id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi from nhan_vien 
+ where nhan_vien.trang_thai_hien_thi = 0
  union all
- select 'khach_hang' as type, ma_khach_hang as id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi from khach_hang;
+ select 'khach_hang' as type, ma_khach_hang as id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi from khach_hang
+ where khach_hang.trang_thai_hien_thi = 0;
  
 
 
