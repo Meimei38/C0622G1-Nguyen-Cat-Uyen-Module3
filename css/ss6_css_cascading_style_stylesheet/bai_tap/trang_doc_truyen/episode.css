@@ -1,0 +1,62 @@
+
+body {
+    background-image: url("WallpaperDog-20458270.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#opening {
+    width: 80%;
+    margin: auto 20em;
+}
+
+button {
+    height: 50px;
+    width: 100%;
+    border-radius: 25px;
+    background-color: #182e36;
+    border-color: #8caabc;
+    color: #8caabc;
+    font-size: 25px;
+    font-family: Garamond;
+}
+
+#content {
+
+    background-color: #11222c;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 47%;
+    opacity: 0.5;
+    height: 50px;
+    text-align: justify;
+    text-justify: distribute-all-lines;
+    font-family: Garamond;
+    font-size: 20px;
+    line-height: 1.5em;
+    padding: 25px 50px 25px;
+    color: white;
+    box-shadow: 0 0 0.6em white;
+}
+
+h1 {
+    margin-top: 100px;
+    margin-bottom: 50px;
+    padding-left: 40%;
+    font-size: 50px;
+    font-family: "Brush Script MT";
+    text-shadow: 0 0 1.6em #b7882d, 0.2em 0.2em 2em #182e36;
+    background: url("yellow-1845394__480.jpg");
+    background-size: cover;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    text-shadow: 0 0 1.6em #b7882d;
+}
+button:hover {
+    box-shadow: 0 0 0.6em #f4d746;
+    color: white;
+}
+
+button:active {
+    color: navajowhite;
+}
