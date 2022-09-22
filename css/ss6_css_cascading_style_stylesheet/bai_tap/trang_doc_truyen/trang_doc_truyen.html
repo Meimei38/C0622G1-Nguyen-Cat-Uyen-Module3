@@ -5,6 +5,7 @@
     <title>Tạo trang đọc truyện ngắn</title>
 </head>
 <style>
+
     body {
         background-image: url("WallpaperDog-20458270.jpg");
         background-repeat: no-repeat;
@@ -17,12 +18,24 @@
     }
 
     h1 {
+        position: relative;
         color: #8caabc;
         font-family: "Lucida Calligraphy";
         text-align: center;
         font-size: 100px;
         text-shadow: 0 0 0.2em #0c1921, 0.6em 0.6em 1.6em #0c1921;
+        animation-name: zooming;
+        animation-duration: 4s;
+    }
 
+    @keyframes zooming {
+
+        from {
+            transform: scale(0)
+        }
+        to {
+            transform: scale(1);
+        }
     }
 
     button {
@@ -80,30 +93,41 @@
         </th>
     </tr>
 </table>
+
 <h1> The Witcher</h1>
+
 <table id="main-menu">
     <tr>
-        <th id="opening-main-menu"> Start The Journey</th>
-    </tr>
-
-    <tr>
-        <th>
-             <a style="text-decoration: none"target="_blank" href="chuong_1.html"> <button>Episode 1: Sword of Destiny</button> </a>
+        <th id="opening-main-menu">
+            Start The Journey
         </th>
     </tr>
     <tr>
         <th>
-            <a style="text-decoration: none"target="_blank" href="chuong_2.html"><button>Episode 2: The Last Wish</button> </a>
+            <a style="text-decoration: none" target="_blank" href="chuong_1.html">
+                <button>Episode 1: Sword of Destiny</button>
+            </a>
         </th>
     </tr>
     <tr>
         <th>
-            <a style="text-decoration: none"target="_blank" href="chuong_3.html"><button>Episode 3: Blood of Elves</button></a>
+            <a style="text-decoration: none" target="_blank" href="chuong_2.html">
+                <button>Episode 2: The Last Wish</button>
+            </a>
         </th>
     </tr>
     <tr>
         <th>
-            <a style="text-decoration: none"target="_blank" href="chuong_4.html"><button>Episode 4: Time of Contempt</button></a>
+            <a style="text-decoration: none" target="_blank" href="chuong_3.html">
+                <button>Episode 3: Blood of Elves</button>
+            </a>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <a style="text-decoration: none" target="_blank" href="chuong_4.html">
+                <button>Episode 4: Time of Contempt</button>
+            </a>
         </th>
     </tr>
 </table>

@@ -30,7 +30,7 @@ left join hop_dong as hd on kh.ma_khach_hang = hd.ma_khach_hang
 left join dich_vu as dv on hd.ma_dich_vu = dv.ma_dich_vu
 left join hop_dong_chi_tiet as hdct on hdct.ma_hop_dong = hd.ma_hop_dong
 left join dich_vu_di_kem as dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
-group by kh.ma_khach_hang, hd.ma_hop_dong;
+group by hd.ma_hop_dong;
 select * from task_5;
 
 -- 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu 
