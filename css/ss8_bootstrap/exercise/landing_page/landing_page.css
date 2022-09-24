@@ -1,9 +1,35 @@
-video{
+
+video {
+    width: 99vw;
+    height: 100vh;
+    object-fit: cover;
+    border: none;
+}
+.container{
+    position: relative;
     width: 100vw;
     height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-    z-index: -1;
+    margin-right: 10px;
 }
+.text-box{
+    position: absolute;
+    top: 23%;
+    right: -35%;
+    display: flex;
+    width: 50%;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    padding-right: 10px;
+
+}
+
+h1{
+    font-size: 90px;
+    font-weight: 600;
+    line-height: 100px;
+    word-wrap: break-word;
+    min-width: 320px;
+
+}
+
+
