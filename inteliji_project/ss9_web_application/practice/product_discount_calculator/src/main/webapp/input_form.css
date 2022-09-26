@@ -1,0 +1,13 @@
+form{
+    border: 1px solid gray;
+    width: 40%;
+    padding: 10px 10px 10px 10px;
+}
+h1,label, input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+label{
+    font-size: 20px;
+}
