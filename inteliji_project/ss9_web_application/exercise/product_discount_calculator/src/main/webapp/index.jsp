@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Product Discount Calculator</title>
-  <link rel="stylesheet" type="text/css" href="input_form.css">
+    <link rel="stylesheet" type="text/css" href="input_form.css">
 
 </head>
 <body>
@@ -21,7 +21,7 @@
     <input name="price" type="number" placeholder="Enter list price"> <br>
     <label>Discount percent </label> <br>
     <input name="percent" type="number" placeholder="Enter discount percent"> <br>
-  <button type="submit">Click me</button>
+    <button type="submit">Click me</button>
 
 </form>
 
@@ -30,7 +30,7 @@ ${discount_amount}
 <%
 %>--%>
 <h1>
-${discount_amount == null ? "" :discount_amount }
+    ${discount_amount == null ? "" :discount_amount }
 </h1>
 </body>
 </html>
