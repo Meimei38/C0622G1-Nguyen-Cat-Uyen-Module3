@@ -10,6 +10,14 @@
 <html>
 <head>
     <title>Calculator</title>
+    <style>
+        fieldset{
+            width: 10%;
+        }
+        h3{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1> Simple Calculator</h1>
@@ -19,12 +27,12 @@
         <table>
             <tr>
                 <td> First operand</td>
-                <td><input name="first-operand" value="${firstOperand}" type="text"></td>
+                <td><input name="first-operand"  type="text"></td>
             </tr>
             <tr>
                 <td> Operator</td>
                 <td>
-                    <select name="operator" value="operator">
+                    <select name="operator" >
                         <option value="+">Addition</option>
                         <option value="-">Subtraction</option>
                         <option value="*">Multiplication</option>
@@ -34,7 +42,7 @@
             </tr>
             <tr>
                 <td> Second operand</td>
-                <td><input name="second-operand" value="${secondOperand}" type="text"></td>
+                <td><input name="second-operand"  type="text"></td>
             </tr>
             <tr>
                 <td></td>
@@ -45,7 +53,7 @@
     </fieldset>
 </form>
 <c:if test="${result !=null}">
-    <h3>${result}</h3>
+    <h3>${firstOperand} ${operator} ${secondOperand} = ${result}</h3>
 </c:if>
 </body>
 </html>

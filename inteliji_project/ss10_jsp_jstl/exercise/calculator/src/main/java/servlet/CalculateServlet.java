@@ -19,6 +19,7 @@ public class CalculateServlet extends HttpServlet {
             double result = Calculator.calculate(firstOperand, secondOperand, operator);
             request.setAttribute("firstOperand", firstOperand);
             request.setAttribute("secondOperand", secondOperand);
+            request.setAttribute("operator", operator);
             request.setAttribute("result", result);
             request.getRequestDispatcher("calculator.jsp").forward(request, response);
         } catch (Exception e) {
