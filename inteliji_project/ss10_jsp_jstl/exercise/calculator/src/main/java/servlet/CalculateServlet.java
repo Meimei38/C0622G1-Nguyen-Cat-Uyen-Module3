@@ -17,10 +17,12 @@ public class CalculateServlet extends HttpServlet {
         char operator = request.getParameter("operator").charAt(0);
         try {
             double result = Calculator.calculate(firstOperand, secondOperand, operator);
+            request.setAttribute("firstOperand", firstOperand);
+            request.setAttribute("secondOperand", secondOperand);
             request.setAttribute("result", result);
             request.getRequestDispatcher("calculator.jsp").forward(request, response);
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 
