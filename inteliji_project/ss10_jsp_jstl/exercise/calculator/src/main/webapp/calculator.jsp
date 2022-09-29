@@ -11,10 +11,11 @@
 <head>
     <title>Calculator</title>
     <style>
-        fieldset{
+        fieldset {
             width: 10%;
         }
-        h3{
+
+        h3 {
             color: red;
         }
     </style>
@@ -27,12 +28,12 @@
         <table>
             <tr>
                 <td> First operand</td>
-                <td><input name="first-operand"  type="text"></td>
+                <td><input name="first-operand" type="text"></td>
             </tr>
             <tr>
                 <td> Operator</td>
                 <td>
-                    <select name="operator" >
+                    <select name="operator">
                         <option value="+">Addition</option>
                         <option value="-">Subtraction</option>
                         <option value="*">Multiplication</option>
@@ -42,7 +43,7 @@
             </tr>
             <tr>
                 <td> Second operand</td>
-                <td><input name="second-operand"  type="text"></td>
+                <td><input name="second-operand" type="text"></td>
             </tr>
             <tr>
                 <td></td>
