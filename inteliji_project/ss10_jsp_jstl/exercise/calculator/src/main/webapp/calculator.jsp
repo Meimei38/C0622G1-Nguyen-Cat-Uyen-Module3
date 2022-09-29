@@ -24,7 +24,7 @@
             <tr>
                 <td> Operator</td>
                 <td>
-                    <select name="operator">
+                    <select name="operator" value="operator">
                         <option value="+">Addition</option>
                         <option value="-">Subtraction</option>
                         <option value="*">Multiplication</option>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td> Second operand</td>
-                <td><input name="second-operand" value="${firstOperand}" type="text"></td>
+                <td><input name="second-operand" value="${secondOperand}" type="text"></td>
             </tr>
             <tr>
                 <td></td>
