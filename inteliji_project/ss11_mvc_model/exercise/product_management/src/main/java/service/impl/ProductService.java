@@ -36,4 +36,14 @@ public class ProductService implements IProductService {
         productRepository.remove(id);
     }
 
+    @Override
+    public List<Product> searchByName(String name) {
+        return productRepository.searchByName(name);
+    }
+
+    @Override
+    public List<Product> searchByPrice(double min, double max) {
+        return productRepository.searchByPrice(min, max);
+    }
+
 }

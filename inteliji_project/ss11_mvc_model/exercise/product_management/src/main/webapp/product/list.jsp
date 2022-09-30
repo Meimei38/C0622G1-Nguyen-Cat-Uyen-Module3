@@ -15,6 +15,7 @@
 <h1>Products</h1>
 <p>
     <a href="/products?action=create">Create new product</a>
+    <a href="/products?action=search">Tìm kiếm sản phẩm</a>
 </p>
 <table border="1">
     <tr>

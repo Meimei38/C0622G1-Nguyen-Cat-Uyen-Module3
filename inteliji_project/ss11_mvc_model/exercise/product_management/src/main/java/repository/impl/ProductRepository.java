@@ -45,4 +45,32 @@ public class ProductRepository implements IProductRepository {
     public void remove(int id) {
         productList.remove(id);
     }
+
+    @Override
+    public List<Product> searchByName(String name) {
+        List<Product> productsFound = new ArrayList<>();
+
+        for (Product product : productList.values()
+        ) {
+            if (product.getName().contains(name)) {
+                productsFound.add(product);
+            }
+        }
+        return productsFound;
+    }
+
+
+
+    @Override
+    public List<Product> searchByPrice(double min, double max) {
+        List<Product> productsFound = new ArrayList<>();
+
+        for (Product product : productList.values()
+        ) {
+            if (product.getPrice() > min && product.getPrice() < max) {
+                productsFound.add(product);
+            }
+        }
+        return productsFound;
+    }
 }
