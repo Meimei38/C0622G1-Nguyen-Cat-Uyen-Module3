@@ -4,12 +4,10 @@ import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class UserDAO implements IUserDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+public class Repository implements IRepository {
+    private String jdbcURL = "jdbc:mysql://localhost:3306/demo1?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "@Meimei52Hz_Arya@";
 
@@ -20,7 +18,7 @@ public class UserDAO implements IUserDAO {
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
 
-    public UserDAO() {
+    public Repository() {
     }
 
     protected Connection getConnection() {
@@ -143,6 +141,87 @@ public class UserDAO implements IUserDAO {
             statement.setInt(4, user.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
+    }
+
+    @Override
+    public List<User> display() {
+        User user = null;
+        List<User> users = new ArrayList<>();
+
+        String query = "{CALL display}";
+
+        // Step 1: Establishing a Connection
+
+        try (Connection connection = getConnection();
+
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(query);) {
+
+
+            // Step 3: Execute the query or update query
+
+            ResultSet rs = callableStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+
+                String name = rs.getString("name");
+
+                String email = rs.getString("email");
+
+                String country = rs.getString("country");
+
+                user = new User(id, name, email, country);
+                users.add(user);
+
+
+            }
+
+        } catch (SQLException e) {
+
+            printSQLException(e);
+
+        }
+
+        return users;
+
+    }
+
+    @Override
+    public boolean edit(User user) {
+        boolean rowUpdate = false;
+        String query = "{CALL edit_user(?,?,?,?)}";
+        try (Connection connection = getConnection(); CallableStatement callableStatement = connection.prepareCall(query);) {
+            callableStatement.setString(2, user.getName());
+            callableStatement.setString(3, user.getEmail());
+            callableStatement.setString(4, user.getCountry());
+            callableStatement.setInt(1, user.getId());
+
+            rowUpdate = callableStatement.executeUpdate() > 0;
+
+           rowUpdate= callableStatement.executeUpdate() >0;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return rowUpdate;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        boolean rowUpdated = false;
+        String query = "{CALL delete_user(?)}";
+        try {
+            Connection connection = getConnection();
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1,id);
+            rowUpdated = callableStatement.executeUpdate() >0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return rowUpdated;
     }

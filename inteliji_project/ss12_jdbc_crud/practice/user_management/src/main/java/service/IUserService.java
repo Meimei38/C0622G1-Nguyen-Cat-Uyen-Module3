@@ -1,15 +1,15 @@
-package dao;
+package service;
 
 import model.User;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IUserDAO {
+public interface IUserService {
     public void insertUser(User user) throws SQLException;
 
     public User selectUserById(int id);
-    public  List<User> selectUserByCountry(String country);
+    public List<User> selectUserByCountry(String country);
 
     public List<User> selectAllUsers();
 
