@@ -114,7 +114,7 @@
                         <label for="name" class="h6">Name:</label>
                         <div class="input-group">
                             <input type="text" id="name" class="form-control" placeholder="Input name" name="name"
-                                   required pattern=^\\p{Lu}\\p{Ll}+(\\s\\p{Lu}\\p{Ll}+)*$"
+                                   required
                                    title="Tên nhân viên không được chứa số và các kí tự đầu tiên của mỗi từ phải viết hoa.">
                             <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span>
                         </div>
@@ -122,7 +122,7 @@
 
                     <div class="mt-3 form-group">
                         <label for="dateOfBirth" class="h6">Date of Birth:</label>
-                        <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth">
+                        <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth" required>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -226,23 +226,6 @@
         </div>
     </div>
 </div>
-
-<%--
-        <footer class="footer mt-auto d-flex flex-wrap justify-content-between align-items-center">
-            <p class="footer">&copy; 2021 Company, Inc</p>
-
-            <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            </a>
-
-            <ul class="nav col-md-4 justify-content-end">
-                <li class="footer"><a href="#" class="footer">Home</a></li>
-                <li class=" footer"><a href="#" class="footer">Features</a></li>
-                <li class=" footer"><a href="#" class="footer">Pricing</a></li>
-                <li class="footer"><a href="#" class="footer">FAQs</a></li>
-                <li class="footer"><a href="#" class="footer">About</a></li>
-            </ul>
-        </footer>--%>
 
 </body>
 </html>

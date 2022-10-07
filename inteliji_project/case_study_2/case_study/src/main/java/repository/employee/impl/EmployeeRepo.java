@@ -18,7 +18,7 @@ public class EmployeeRepo implements IEmployeeRepo {
     public static final String SELECT_ALL_EMPLOYEE_DTO = "select employee.*, position.name as position_name, education_degree.name as education_degree_name, division.name as division_name from employee\n" +
             "join position on employee.position_id = position.id\n" +
             "join education_degree on employee.education_degree_id = education_degree.id\n" +
-            "join division on employee.division_id = division.id where employee.is_delete =0";
+            "join division on employee.division_id = division.id where employee.is_delete =0 order by employee.id";
     private static final String INSERT_EMPLOYEE = "INSERT INTO `employee` (`name`, `date_of_birth`, `id_card`, `salary`, `phone_number`, `email`, `address`, `position_id`, `education_degree_id`, `division_id`)" +
             "VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?);";
     private static final String EDIT_EMPLOYEE = "UPDATE `employee` set `name` = ?, `date_of_birth` = ?, `id_card`= ?, `salary`= ?, `phone_number`= ?, `email`= ?, `address`= ?, `position_id`= ?, `education_degree_id`= ?, `division_id`= ?" +
