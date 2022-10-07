@@ -135,33 +135,31 @@
                     <th>Position</th>
                     <th>Education Degree</th>
                     <th>Division</th>
-                    <th>Username</th>
                     <th> Edit</th>
                     <th> Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="employee" items="${employeeList}">
+                <c:forEach var="employeeDto" items="${employeeDtoList}">
                     <tr>
-                        <td><c:out value="${employee.id}"/></td>
-                        <td><c:out value="${employee.name}"/></td>
-                        <td><c:out value="${employee.dateOfBirth}"/></td>
-                        <td><c:out value="${employee.idCard}"/></td>
-                        <td><c:out value="${employee.salary}"/></td>
-                        <td><c:out value="${employee.phoneNumber}"/></td>
-                        <td><c:out value="${employee.email}"/></td>
-                        <td><c:out value="${employee.address}"/></td>
-                        <td><c:out value="${employee.positionId}"/></td>
-                        <td><c:out value="${employee.educationDegreeId}"/></td>
-                        <td><c:out value="${employee.divisionId}"/></td>
-                        <td><c:out value="${employee.username}"/></td>
-                        <td> <a class="btn btn-primary" href="/employee?action=edit&id=${employee.id}">Edit</a> </td>
+                        <td><c:out value="${employeeDto.id}"/></td>
+                        <td><c:out value="${employeeDto.name}"/></td>
+                        <td><c:out value="${employeeDto.dateOfBirth}"/></td>
+                        <td><c:out value="${employeeDto.idCard}"/></td>
+                        <td><c:out value="${employeeDto.salary}"/></td>
+                        <td><c:out value="${employeeDto.phoneNumber}"/></td>
+                        <td><c:out value="${employeeDto.email}"/></td>
+                        <td><c:out value="${employeeDto.address}"/></td>
+                        <td><c:out value="${employeeDto.position}"/></td>
+                        <td><c:out value="${employeeDto.educationDegree}"/></td>
+                        <td><c:out value="${employeeDto.division}"/></td>
+                        <td> <a class="btn btn-primary" href="/employee?action=edit&id=${employeeDto.id}">Edit</a> </td>
                         <td>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#delete${employee.id}">
+                                    data-bs-target="#delete${employeeDto.id}">
                                 Delete
                             </button>
-                            <div class="modal fade " id="delete${employee.id}" tabindex="-1"
+                            <div class="modal fade " id="delete${employeeDto.id}" tabindex="-1"
                                  aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog">
@@ -172,12 +170,12 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-black">
-                                            Bạn có muốn xóa <strong class="text-danger">${employee.name}</strong>?
+                                            Bạn có muốn xóa <strong class="text-danger">${employeeDto.name}</strong>?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                             </button>
-                                            <a href="employee?action=delete&id=${employee.id}"
+                                            <a href="employee?action=delete&id=${employeeDto.id}"
                                                class="btn btn-danger">Delete</a>
                                         </div>
                                     </div>

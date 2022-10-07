@@ -2,6 +2,7 @@ package service.employee.impl;
 
 
 import model.employee.Employee;
+import model.employee.EmployeeDto;
 import repository.employee.IEmployeeRepo;
 import repository.employee.impl.EmployeeRepo;
 import service.employee.IEmployeeService;
@@ -22,6 +23,11 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public List<Employee> findAll() {
         return employeeRepo.findAll();
+    }
+
+    @Override
+    public List<EmployeeDto> findAllDto() {
+        return employeeRepo.findAllDto();
     }
 
     @Override

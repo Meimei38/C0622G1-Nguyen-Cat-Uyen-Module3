@@ -1,6 +1,7 @@
 package repository.employee.impl;
 
 import model.employee.Employee;
+import model.employee.EmployeeDto;
 import repository.BaseRepository;
 import repository.employee.IEmployeeRepo;
 
@@ -14,6 +15,10 @@ import java.util.List;
 public class EmployeeRepo implements IEmployeeRepo {
 
     public static final String SELECT_ALL_EMPLOYEE = "select * from employee where is_delete=0;";
+    public static final String SELECT_ALL_EMPLOYEE_DTO = "select employee.*, position.name as position_name, education_degree.name as education_degree_name, division.name as division_name from employee\n" +
+            "join position on employee.position_id = position.id\n" +
+            "join education_degree on employee.education_degree_id = education_degree.id\n" +
+            "join division on employee.division_id = division.id where employee.is_delete =0";
     private static final String INSERT_EMPLOYEE = "INSERT INTO `employee` (`name`, `date_of_birth`, `id_card`, `salary`, `phone_number`, `email`, `address`, `position_id`, `education_degree_id`, `division_id`)" +
             "VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?);";
     private static final String EDIT_EMPLOYEE = "UPDATE `employee` set `name` = ?, `date_of_birth` = ?, `id_card`= ?, `salary`= ?, `phone_number`= ?, `email`= ?, `address`= ?, `position_id`= ?, `education_degree_id`= ?, `division_id`= ?" +
@@ -69,6 +74,34 @@ public class EmployeeRepo implements IEmployeeRepo {
     }
 
     @Override
+    public List<EmployeeDto> findAllDto() {
+        List<EmployeeDto> employeeDtoList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EMPLOYEE_DTO);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String dateOfBirth = rs.getString("date_of_birth");
+                String idCard = rs.getString("id_card");
+                Double salary = Double.valueOf(rs.getString("salary"));
+                String phoneNumber = rs.getString("phone_number");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                String position = rs.getString("position_name");
+                String educationDegree = rs.getString("education_degree_name");
+                String division = rs.getString("division_name");
+                String username = rs.getString("username");
+                employeeDtoList.add(new EmployeeDto(id, name, dateOfBirth, idCard, salary, phoneNumber, email, address, position, educationDegree, division, username));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return employeeDtoList;
+    }
+
+    @Override
     public Employee findById(int id) {
         Employee employee = null;
         Connection connection = BaseRepository.getConnectDB();
@@ -104,7 +137,7 @@ public class EmployeeRepo implements IEmployeeRepo {
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EMPLOYEE);
         preparedStatement.setInt(1, id);
         try {
-           rowUpdated = preparedStatement.executeUpdate() > 0;
+            rowUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

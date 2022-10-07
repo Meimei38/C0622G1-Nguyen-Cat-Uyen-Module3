@@ -1,6 +1,7 @@
 package controller;
 
 import model.employee.Employee;
+import model.employee.EmployeeDto;
 import service.employee.IEmployeeService;
 import service.employee.impl.EmployeeService;
 
@@ -34,12 +35,18 @@ public class EmployeeServlet extends HttpServlet {
                     editEmployee(request, response);
                     break;
                 default:
-                    findAll(request, response);
+                    findAllDto(request, response);
 
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void findAllDto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<EmployeeDto> employeeDtoList = employeeService.findAllDto();
+        request.setAttribute("employeeDtoList", employeeDtoList);
+        request.getRequestDispatcher("employee/list.jsp").forward(request, response);
     }
 
     private void addEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -93,7 +100,7 @@ public class EmployeeServlet extends HttpServlet {
         }
         switch (action) {
             case "list":
-                findAll(request, response);
+                findAllDto(request, response);
                 break;
             case "add":
                 showAddForm(request, response);
@@ -109,7 +116,7 @@ public class EmployeeServlet extends HttpServlet {
                 }
                 break;
             default:
-                findAll(request, response);
+                findAllDto(request, response);
 
         }
     }
@@ -121,7 +128,7 @@ public class EmployeeServlet extends HttpServlet {
         List<Employee> employeeList = employeeService.findAll();
         request.setAttribute("employeeList", employeeList);
         request.setAttribute("mess", "Xóa thành công");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee?action");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
