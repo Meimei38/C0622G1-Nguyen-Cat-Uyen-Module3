@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: OS
@@ -7,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -62,7 +62,6 @@
     }
 
     .main {
-        height: 100vh;
         padding-left: 30px;
         padding-right: 30px;
     }
@@ -113,7 +112,7 @@
                         <label for="name" class="h6">Name:</label>
                         <div class="input-group">
                             <input type="text" id="name" class="form-control" placeholder="Input name" name="name"
-                                   value="<c:out value='${employee.name}' />
+                                   value="<c:out value='${employee.name}' />"
                                    required pattern=^\\p{Lu}\\p{Ll}+(\\s\\p{Lu}\\p{Ll}+)*$"
                                    title="Tên nhân viên không được chứa số và các kí tự đầu tiên của mỗi từ phải viết hoa.">
                             <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span>
@@ -150,10 +149,10 @@
                     </div>
 
                     <div class="mt-3 form-group">
-                        <label for="phone" class="h6">Phone number:</label>
+                        <label for="phoneNumber" class="h6">Phone number:</label>
                         <div class="input-group">
-                            <input type="text" id="phone" class="form-control" placeholder="Input Phone number"
-                                   name="phone"
+                            <input type="text" id="phoneNumber" class="form-control" placeholder="Input Phone number"
+                                   name="phoneNumber"
                                    required pattern="^09[01]\d{7}|[(]84[)][+]9[01]\d{7}$"
                                    value="<c:out value='${employee.phoneNumber}' />"
                                    title="Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.">
@@ -188,13 +187,13 @@
                         <label class="h6" for="position">Position:</label>
                         <div class="input-group">
                             <select id="position" class="form-control" name="position">
-                                <option value=1> Lễ tân</option>
-                                <option value=2> Phục vụ</option>
-                                <option value=3> Chuyên viên</option>
-                                <option value=4> Giám sát</option>
-                                <option value=5> Quản lý</option>
-                                <option value=6> Giám đốc</option>
-
+                               <option value=1 ${employee.positionId == 1? "selected":""}> Lễ tân</option>
+                                <option value=2 ${employee.positionId == 2? "selected":""}> Phục vụ</option>
+                                <option value=3 ${employee.positionId == 3? "selected":""}> Chuyên viên</option>
+                                <option value=4 ${employee.positionId == 4? "selected":""}> Giám sát</option>
+                                <option value=5 ${employee.positionId == 5? "selected":""}> Quản lý</option>
+                                <option value=6 ${employee.positionId == 6? "selected":""}> Giám đốc</option>
+--%>
                             </select>
                             <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
                         </div>
@@ -204,10 +203,10 @@
                         <label class="h6" for="educationDegree">Education degree:</label>
                         <div class="input-group">
                             <select id="educationDegree" class="form-control" name="educationDegree">
-                                <option value="1"> Trung cấp</option>
-                                <option value="2"> Cao đẳng</option>
-                                <option value="3"> Đại học</option>
-                                <option value="4"> Sau đại học</option>
+                                <option value="1" ${employee.educationDegreeId == 1? "selected":""}> Trung cấp</option>
+                                <option value="2" ${employee.educationDegreeId == 2? "selected":""}> Cao đẳng</option>
+                                <option value="3" ${employee.educationDegreeId == 3? "selected":""}> Đại học</option>
+                                <option value="4" ${employee.educationDegreeId == 4? "selected":""}> Sau đại học</option>
                             </select>
                             <span class="input-group-text"><i class="fa-solid fa-graduation-cap"></i></span>
                         </div>
@@ -217,64 +216,45 @@
                         <label class="h6" for="division">Division:</label>
                         <div class="input-group">
                             <select id="division" class="form-control" name="division">
-
-                                <option value="1"
-                                        <c:if test="${employee.address== value}">
-                                            selected
-                                        </c:if>
-                                > Sale-Marketing
-                                </option>
-                                <option value="2"
-                                        <c:if test="${employee.address== value}">
-                                            selected
-                                        </c:if>> Hành chính
-                                </option>
-                                <option value="3"
-                                        <c:if test="${employee.address== value}">
-                                            selected
-                                        </c:if>> Phục vụ
-                                </option>
-                                <option value="4"
-                                        <c:if test="${employee.address== value}">
-                                            selected
-                                        </c:if>> Quản lý
-                                </option>
+                                <option value="1" ${employee.divisionId == 1? "selected":""}> Sale-Marketing </option>
+                                <option value="2"${employee.divisionId == 2? "selected":""}> Hành chính</option>
+                                <option value="3"${employee.divisionId == 3? "selected":""}> Phục vụ</option>
+                                <option value="4"${employee.divisionId == 4? "selected":""}> Quản lý </option>
                             </select>
                             <span class="input-group-text"><i class="fa-brands fa-creative-commons-nd"></i></span>
                         </div>
                     </div>
 
                     <div class="mt-3 text-center">
-                        <button class="btn  btn-sm border border-light  text-dark">
+                        <button type="submit" class="btn btn-sm border border-light  text-dark">
                             -- Save --
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="row mx-0 ">
-            <div class="col-12 mx-0 px-0">
-                <footer class="d-flex flex-wrap justify-content-between align-items-center">
-                    <p class="footer">&copy; 2021 Company, Inc</p>
-
-                    <a href="/"
-                       class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32">
-                            <use xlink:href="#bootstrap"/>
-                        </svg>
-                    </a>
-
-                    <ul class="nav col-md-4 justify-content-end">
-                        <li class="footer"><a href="#" class="footer">Home</a></li>
-                        <li class=" footer"><a href="#" class="footer">Features</a></li>
-                        <li class=" footer"><a href="#" class="footer">Pricing</a></li>
-                        <li class="footer"><a href="#" class="footer">FAQs</a></li>
-                        <li class="footer"><a href="#" class="footer">About</a></li>
-                    </ul>
-                </footer>
-            </div>
-        </div>
     </div>
 </div>
+
+<%--        <footer class="d-flex flex-wrap justify-content-between align-items-center">
+            <p class="footer">&copy; 2021 Company, Inc</p>
+
+            <a href="/"
+               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"/>
+                </svg>
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="footer"><a href="#" class="footer">Home</a></li>
+                <li class=" footer"><a href="#" class="footer">Features</a></li>
+                <li class=" footer"><a href="#" class="footer">Pricing</a></li>
+                <li class="footer"><a href="#" class="footer">FAQs</a></li>
+                <li class="footer"><a href="#" class="footer">About</a></li>
+            </ul>
+        </footer>--%>
+
+
 </body>
 </html>

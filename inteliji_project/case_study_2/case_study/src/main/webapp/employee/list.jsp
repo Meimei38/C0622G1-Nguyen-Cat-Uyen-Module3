@@ -89,7 +89,11 @@
     #add:hover{
         background-color: darkcyan;
     }
-
+    h4{
+        margin-left: 20px;
+        color: red;
+        margin-bottom: 20px;
+    }
 
 </style>
 <body>
@@ -106,6 +110,9 @@
         <h1>
             List
         </h1>
+        <c:if test= "${mess!=null}">
+            <h4> ${mess} </h4>
+        </c:if>
     </div>
 
     <div class="row">
@@ -148,11 +155,35 @@
                         <td><c:out value="${employee.educationDegreeId}"/></td>
                         <td><c:out value="${employee.divisionId}"/></td>
                         <td><c:out value="${employee.username}"/></td>
-                        <td> <a class="btn btn-primary" href="/employee?action=edit?id=${employee.id}">Edit</a> </td>
-                        <td> <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <td> <a class="btn btn-primary" href="/employee?action=edit&id=${employee.id}">Edit</a> </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#delete${employee.id}">
                                 Delete
-                            </button></td>
+                            </button>
+                            <div class="modal fade " id="delete${employee.id}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-light">
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="modal-title" id="exampleModalLabel_edit">Delete Employee</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black">
+                                            Bạn có muốn xóa <strong class="text-danger">${employee.name}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                            </button>
+                                            <a href="employee?action=delete&id=${employee.id}"
+                                               class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </c:forEach>
 
@@ -176,25 +207,4 @@
         </ul>
     </footer>
 </body>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form action="/employee?action=delete" method="post">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 </html>

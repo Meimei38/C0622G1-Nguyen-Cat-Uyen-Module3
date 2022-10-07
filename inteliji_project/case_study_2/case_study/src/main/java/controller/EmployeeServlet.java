@@ -33,9 +33,6 @@ public class EmployeeServlet extends HttpServlet {
                 case "edit":
                     editEmployee(request, response);
                     break;
-                case "delete":
-                    deleteEmployee(request, response);
-                    break;
                 default:
                     findAll(request, response);
 
@@ -58,6 +55,7 @@ public class EmployeeServlet extends HttpServlet {
         int divisionId = Integer.parseInt(request.getParameter("division"));
         Employee employee = new Employee(name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId);
         employeeService.addEmployee(employee);
+        request.setAttribute("mess", "Thêm mới thành công");
         request.getRequestDispatcher("employee/create.jsp").forward(request, response);
     }
 
@@ -75,12 +73,11 @@ public class EmployeeServlet extends HttpServlet {
         int divisionId = Integer.parseInt(request.getParameter("division"));
         Employee employee = new Employee(id, name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId);
         employeeService.editEmployee(employee);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
+        request.setAttribute("mess", "Chỉnh sửa thành công");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee?action");
         dispatcher.forward(request, response);
     }
 
-    private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
-    }
 
     private void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Employee> employeeList = employeeService.findAll();
@@ -104,9 +101,35 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 showEditForm(request, response);
                 break;
+            case "delete":
+                try {
+                    delete(request, response);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                break;
             default:
+                findAll(request, response);
 
         }
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        employeeService.deleteEmployee(id);
+
+        List<Employee> employeeList = employeeService.findAll();
+        request.setAttribute("employeeList", employeeList);
+        request.setAttribute("mess", "Xóa thành công");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {

@@ -76,6 +76,11 @@
         font-weight: bold;
 
     }
+    h4{
+        margin-left: 26%;
+        color: red;
+        margin-bottom: 20px;
+    }
 
 
 </style>
@@ -84,7 +89,7 @@
     <div class="row">
         <div class="col-12" >
 
-            <img id="logo" src="../image/FURAMA.png" height="150px" width="100px"/>
+            <a href="/employee?action="><img id="logo" src="../image/FURAMA.png" height="150px" width="100px"/></a>
             <h2 id="login-name">Nguyen Van A</h2>
 
         </div>
@@ -94,6 +99,10 @@
             List
         </h1>
     </div>
+
+        <c:if test= "${mess!=null}">
+            <h4> ${mess} </h4>
+        </c:if>
 
     <div class="row">
         <div class="main">
@@ -137,9 +146,9 @@
                     </div>
 
                     <div class="mt-3 form-group">
-                        <label for="phone" class="h6">Phone number:</label>
+                        <label for="phoneNumber" class="h6">Phone number:</label>
                         <div class="input-group">
-                            <input type="text" id="phone" class="form-control" placeholder="Input Phone number" name="phone"
+                            <input type="text" id="phoneNumber" class="form-control" placeholder="Input Phone number" name="phoneNumber"
                                    required pattern="^09[01]\d{7}|[(]84[)][+]9[01]\d{7}$"
                                    title="Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.">
                             <span class="input-group-text"><i class="fa-solid fa-square-phone"></i></span>
