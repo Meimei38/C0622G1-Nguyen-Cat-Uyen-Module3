@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class EmployeeService implements IEmployeeService {
-    IEmployeeRepo employeeRepo = new EmployeeRepo();
+    private IEmployeeRepo employeeRepo = new EmployeeRepo();
 
 
     @Override
