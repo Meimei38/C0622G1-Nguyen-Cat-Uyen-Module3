@@ -183,7 +183,12 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Map<Integer, String> positionMap = employeeService.selectAllPosition();
+        Map<Integer, String> educationDegreeMap = employeeService.selectAllEducationDegree();
+        Map<Integer, String> divisionMap = employeeService.selectAllDivision();
+        request.setAttribute("positionMap", positionMap);
+        request.setAttribute("educationDegreeMap", educationDegreeMap);
+        request.setAttribute("divisionMap", divisionMap);
         request.getRequestDispatcher("employee/create.jsp").forward(request, response);
 
     }
