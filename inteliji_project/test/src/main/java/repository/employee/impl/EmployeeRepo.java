@@ -44,7 +44,6 @@ public class EmployeeRepo implements IEmployeeRepo {
         preparedStatement.setInt(8, employee.getPositionId());
         preparedStatement.setInt(9, employee.getEducationDegreeId());
         preparedStatement.setInt(10, employee.getDivisionId());
-        System.out.println(preparedStatement);
         preparedStatement.executeUpdate();
     }
 

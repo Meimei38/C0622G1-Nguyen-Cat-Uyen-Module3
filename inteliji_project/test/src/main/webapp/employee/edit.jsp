@@ -35,9 +35,10 @@
     }
 
     body {
-        background-image: url("kseniya-lapteva-kOajnscQxW8-unsplash.jpg")!important;
+        background-image: url("kseniya-lapteva-kOajnscQxW8-unsplash.jpg") !important;
         background-repeat: no-repeat;
     }
+
     .main {
         padding-left: 30px;
         padding-right: 30px;
@@ -72,16 +73,19 @@
     <div class="row">
         <div class="col-12">
 
-            <img id="logo" src="../image/accountlogo.jpg" height="150px" width="150px"/>
-            <h2 id="login-name">Nguyen Van A</h2>
+            <a href="/employee?action="><img id="logo" src="../image/accountlogo.jpg" height="150px" width="150px"/></a>
+            <h2 id="login-name">Nguyễn Cát Uyên</h2>
 
         </div>
     </div>
     <div class="row">
         <h1>
-            List
+            Edit Employee 
         </h1>
     </div>
+    <c:if test="${mess!=null}">
+        <h4> ${mess} </h4>
+    </c:if>
 
     <div class="row">
         <div class="main">
@@ -94,16 +98,22 @@
                         <div class="input-group">
                             <input type="text" id="name" class="form-control" placeholder="Input name" name="name"
                                    value="<c:out value='${employee.name}' />"
-                                   required pattern="^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$"
+                                   required
                                    title="Tên nhân viên không được chứa số và các kí tự đầu tiên của mỗi từ phải viết hoa.">
                             <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span>
                         </div>
+                        <c:if test="${map.get('name')!=null}">
+                            <p style="color:red;">${map.get('name')}</p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
                         <label for="dateOfBirth" class="h6">Date of Birth:</label>
                         <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth"
                                value="<c:out value='${employee.dateOfBirth}' />">
+                        <c:if test="${map.get('dateOfBirth')!=null}">
+                            <p><span style="color:red;">${map.get('dateOfBirth')}</span></p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -134,11 +144,14 @@
                         <div class="input-group">
                             <input type="text" id="phoneNumber" class="form-control" placeholder="Input Phone number"
                                    name="phoneNumber"
-                                   required pattern="^09[01]\d{7}|[(]84[)][+]9[01]\d{7}$"
-                                   value="<c:out value='${employee.phoneNumber}' />"
-                                   title="Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.">
+                                   required
+                                   value="<c:out value='${employee.phoneNumber}' />">
+
                             <span class="input-group-text"><i class="fa-solid fa-square-phone"></i></span>
                         </div>
+                        <c:if test="${map.get('phoneNumber')!=null}">
+                            <p style="color:red;">${map.get('phoneNumber')}</p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -146,11 +159,13 @@
                         <div class="input-group">
                             <input type="text" id="email" class="form-control" placeholder="Input Email" name="email"
                                    required
-                                   value="<c:out value='${employee.email}' />"
-                                   pattern="^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]{2,}(\.[A-Za-z0-9]{2,}){1,2}$"
-                                   title="Địa chỉ email phải đúng định dạng.">
+                                   value="<c:out value='${employee.email}' />">
+
                             <span class="input-group-text"><i class="fa-solid fa-envelope-circle-check"></i></span>
                         </div>
+                        <c:if test="${map.get('email')!=null}">
+                            <p style="color:red;">${map.get('email')}</p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -168,13 +183,16 @@
                         <label class="h6" for="position">Position:</label>
                         <div class="input-group">
                             <select id="position" class="form-control" name="position">
-                                <option value=1 ${employee.positionId == 1? "selected":""}> Lễ tân</option>
-                                <option value=2 ${employee.positionId == 2? "selected":""}> Phục vụ</option>
-                                <option value=3 ${employee.positionId == 3? "selected":""}> Chuyên viên</option>
-                                <option value=4 ${employee.positionId == 4? "selected":""}> Giám sát</option>
-                                <option value=5 ${employee.positionId == 5? "selected":""}> Quản lý</option>
-                                <option value=6 ${employee.positionId == 6? "selected":""}> Giám đốc</option>
-                                --%>
+                                <c:forEach items="${positionMap}" var="position">
+                                    <option value="${position.key}" ${employee.positionId == position.key? "selected":""}>${position.value}</option>
+                                </c:forEach>
+                                <%--  <option value=1 ${employee.positionId == 1? "selected":""}> Lễ tân</option>
+                                  <option value=2 ${employee.positionId == 2? "selected":""}> Phục vụ</option>
+                                  <option value=3 ${employee.positionId == 3? "selected":""}> Chuyên viên</option>
+                                  <option value=4 ${employee.positionId == 4? "selected":""}> Giám sát</option>
+                                  <option value=5 ${employee.positionId == 5? "selected":""}> Quản lý</option>
+                                  <option value=6 ${employee.positionId == 6? "selected":""}> Giám đốc</option>
+                                  &ndash;%&gt;--%>
                             </select>
                             <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
                         </div>
@@ -184,10 +202,15 @@
                         <label class="h6" for="educationDegree">Education degree:</label>
                         <div class="input-group">
                             <select id="educationDegree" class="form-control" name="educationDegree">
-                                <option value="1" ${employee.educationDegreeId == 1? "selected":""}> Trung cấp</option>
+
+                                <c:forEach items="${educationDegreeMap}" var="educationDegree">
+                                    <option value="${educationDegree.key}" ${employee.educationDegreeId == educationDegree.key? "selected":""}>${educationDegree.value}</option>
+                                </c:forEach>
+
+                                <%--<option value="1" ${employee.educationDegreeId == 1? "selected":""}> Trung cấp</option>
                                 <option value="2" ${employee.educationDegreeId == 2? "selected":""}> Cao đẳng</option>
                                 <option value="3" ${employee.educationDegreeId == 3? "selected":""}> Đại học</option>
-                                <option value="4" ${employee.educationDegreeId == 4? "selected":""}> Sau đại học</option>
+                                <option value="4" ${employee.educationDegreeId == 4? "selected":""}> Sau đại học</option>--%>
                             </select>
                             <span class="input-group-text"><i class="fa-solid fa-graduation-cap"></i></span>
                         </div>
@@ -197,10 +220,15 @@
                         <label class="h6" for="division">Division:</label>
                         <div class="input-group">
                             <select id="division" class="form-control" name="division">
-                                <option value="1" ${employee.divisionId == 1? "selected":""}> Sale-Marketing </option>
-                                <option value="2"${employee.divisionId == 2? "selected":""}> Hành chính</option>
-                                <option value="3"${employee.divisionId == 3? "selected":""}> Phục vụ</option>
-                                <option value="4"${employee.divisionId == 4? "selected":""}> Quản lý </option>
+
+                                <c:forEach items="${divisionMap}" var="division">
+                                    <option value="${division.key}" ${employee.divisionId == division.key? "selected":""}>${division.value}</option>
+                                </c:forEach>
+
+                                <%--   <option value="1" ${employee.divisionId == 1? "selected":""}> Sale-Marketing </option>
+                                   <option value="2"${employee.divisionId == 2? "selected":""}> Hành chính</option>
+                                   <option value="3"${employee.divisionId == 3? "selected":""}> Phục vụ</option>
+                                   <option value="4"${employee.divisionId == 4? "selected":""}> Quản lý </option>--%>
                             </select>
                             <span class="input-group-text"><i class="fa-brands fa-creative-commons-nd"></i></span>
                         </div>

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IEmployeeService {
-    void addEmployee(Employee employee) throws SQLException;
+    Map<String, String> addEmployee(Employee employee) throws SQLException;
     List<Employee> searchEmployee(String searchName, String searchDateOfBirth,String searchPositionId) throws SQLException;
 
     List<Employee> findAll();
@@ -18,7 +18,7 @@ public interface IEmployeeService {
 
     boolean deleteEmployee(int id) throws SQLException;
 
-    boolean editEmployee(Employee employee) throws SQLException;
+    Map<String, String> editEmployee(Employee employee) throws SQLException;
     Employee findById(int id);
     Map<Integer, String> selectAllPosition();
     Map<Integer, String> selectAllEducationDegree();

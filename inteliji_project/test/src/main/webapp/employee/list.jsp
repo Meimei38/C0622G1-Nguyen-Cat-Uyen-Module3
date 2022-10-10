@@ -165,7 +165,7 @@
         <div class="col-12">
 
             <a href="/index.jsp"><img id="logo" src="../image/accountlogo.jpg" height="150px" width="150px"/></a>
-            <h2 id="login-name">Nguyen Van A</h2>
+            <h2 id="login-name">Nguyễn Cát Uyên</h2>
 
         </div>
     </div>

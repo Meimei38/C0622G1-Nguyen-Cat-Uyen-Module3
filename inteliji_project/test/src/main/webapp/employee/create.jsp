@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Create</title>
+    <title>Create new employee</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
@@ -35,9 +35,10 @@
     }
 
     body {
-        background-image: url("kseniya-lapteva-kOajnscQxW8-unsplash.jpg")!important;
+        background-image: url("kseniya-lapteva-kOajnscQxW8-unsplash.jpg") !important;
         background-repeat: no-repeat;
     }
+
     .main {
         padding-left: 30px;
         padding-right: 30px;
@@ -73,13 +74,13 @@
         <div class="col-12">
 
             <a href="/employee?action="><img id="logo" src="../image/accountlogo.jpg" height="150px" width="150px"/></a>
-            <h2 id="login-name">Nguyen Van A</h2>
+            <h2 id="login-name">Nguyễn Cát Uyên</h2>
 
         </div>
     </div>
     <div class="row">
         <h1>
-            List
+            Create new employee
         </h1>
     </div>
 
@@ -98,14 +99,20 @@
                         <label for="name" class="h6">Name:</label>
                         <div class="input-group">
                             <input type="text" id="name" class="form-control" placeholder="Input name"
-                                   pattern="\p{Lu}\p{Ll}+(\s\p{Lu}\p{Ll}+)*" name="employeeName" required/>
+                                   name="employeeName" required/>
                             <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span>
                         </div>
+                        <c:if test="${map.get('name')!=null}">
+                            <p style="color:red;">${map.get('name')}</p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
                         <label for="dateOfBirth" class="h6">Date of Birth:</label>
                         <input type="date" id="dateOfBirth" class="form-control" name="dateOfBirth" required>
+                        <c:if test="${map.get('dateOfBirth')!=null}">
+                            <p><span style="color:red;">${map.get('dateOfBirth')}</span></p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -136,10 +143,12 @@
                                 <input type="text" id="phoneNumber" class="form-control"
                                        placeholder="Input Phone number"
                                        name="phoneNumber"
-                                       required pattern="^09[01]\d{7}|[(]84[)][+]9[01]\d{7}$"
-                                       title="Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.">
+                                       required>
                                 <span class="input-group-text"><i class="fa-solid fa-square-phone"></i></span>
                             </div>
+                            <c:if test="${map.get('phoneNumber')!=null}">
+                                <p style="color:red;">${map.get('phoneNumber')}</p>
+                            </c:if>
                         </div>
                     </div>
 
@@ -147,11 +156,12 @@
                         <label for="email" class="h6">Email:</label>
                         <div class="input-group">
                             <input type="text" id="email" class="form-control" placeholder="Input Email" name="email"
-                                   required
-                                   pattern="^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]{2,}(\.[A-Za-z0-9]{2,}){1,2}$"
-                                   title="Địa chỉ email phải đúng định dạng.">
+                                   required>
                             <span class="input-group-text"><i class="fa-solid fa-envelope-circle-check"></i></span>
                         </div>
+                        <c:if test="${map.get('email')!=null}">
+                            <p style="color:red;">${map.get('email')}</p>
+                        </c:if>
                     </div>
 
                     <div class="mt-3 form-group">
@@ -159,7 +169,7 @@
                         <div class="input-group">
                             <input type="text" id="address" class="form-control" placeholder="Input Address"
                                    name="address"
-                                   required pattern="^.+$" title="Vui lòng không để trống địa chỉ.">
+                                   required pattern="^.+$">
                             <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
                         </div>
                     </div>

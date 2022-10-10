@@ -71,6 +71,11 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void addEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        // Thêm vào để hiển thị position, division, edu
+        Map<Integer, String> positionMap = employeeService.selectAllPosition();
+        Map<Integer, String> educationDegreeMap = employeeService.selectAllEducationDegree();
+        Map<Integer, String> divisionMap = employeeService.selectAllDivision();
+        //
         String name = request.getParameter("employeeName");
         String dateOfBirth = request.getParameter("dateOfBirth");
         String idCard = request.getParameter("idCard");
@@ -82,12 +87,32 @@ public class EmployeeServlet extends HttpServlet {
         int educationDegreeId = Integer.parseInt(request.getParameter("educationDegree"));
         int divisionId = Integer.parseInt(request.getParameter("division"));
         Employee employee = new Employee(name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId);
-        employeeService.addEmployee(employee);
-        request.setAttribute("mess", "Thêm mới thành công");
-        request.getRequestDispatcher("employee/create.jsp").forward(request, response);
+
+        Map<String, String> map = employeeService.addEmployee(employee);
+        if (map.size() != 0) {
+            request.setAttribute("mess", "Thêm mới không thành công. Thử lại!");
+            request.setAttribute("map", map);
+            request.setAttribute("employee", employee);
+            //
+            request.setAttribute("positionMap", positionMap);
+            request.setAttribute("educationDegreeMap", educationDegreeMap);
+            request.setAttribute("divisionMap", divisionMap);
+            //
+            request.getRequestDispatcher("employee/create.jsp").forward(request,response);
+        } else {
+            request.setAttribute("mess", "Thêm mới thành công!");
+            request.getRequestDispatcher("employee?action").forward(request,response);
+        }
+
     }
 
     private void editEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        // Thêm vào để hiển thị position, division, edu
+
+        Map<Integer, String> positionMap = employeeService.selectAllPosition();
+        Map<Integer, String> educationDegreeMap = employeeService.selectAllEducationDegree();
+        Map<Integer, String> divisionMap = employeeService.selectAllDivision();
+        //
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String dateOfBirth = request.getParameter("dateOfBirth");
@@ -100,10 +125,22 @@ public class EmployeeServlet extends HttpServlet {
         int educationDegreeId = Integer.parseInt(request.getParameter("educationDegree"));
         int divisionId = Integer.parseInt(request.getParameter("division"));
         Employee employee = new Employee(id, name, dateOfBirth, idCard, salary, phoneNumber, email, address, positionId, educationDegreeId, divisionId);
-        employeeService.editEmployee(employee);
-        request.setAttribute("mess", "Chỉnh sửa thành công");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee?action");
-        dispatcher.forward(request, response);
+        Map<String, String> map = employeeService.editEmployee(employee);
+        if (map.size() != 0) {
+            request.setAttribute("mess", "Sửa không thành công. Thử lại!");
+            request.setAttribute("map", map);
+            request.setAttribute("employee", employee);
+            //
+            request.setAttribute("positionMap", positionMap);
+            request.setAttribute("educationDegreeMap", educationDegreeMap);
+            request.setAttribute("divisionMap", divisionMap);
+            //
+            request.getRequestDispatcher("employee/edit.jsp").forward(request,response);
+        } else {
+            request.setAttribute("mess", "Sửa thành công");
+            request.getRequestDispatcher("employee?action").forward(request,response);
+        }
+
     }
 
 
@@ -171,6 +208,12 @@ public class EmployeeServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         Employee existingEmployee = employeeService.findById(id);
+        Map<Integer, String> positionMap = employeeService.selectAllPosition();
+        Map<Integer, String> educationDegreeMap = employeeService.selectAllEducationDegree();
+        Map<Integer, String> divisionMap = employeeService.selectAllDivision();
+        request.setAttribute("positionMap", positionMap);
+        request.setAttribute("educationDegreeMap", educationDegreeMap);
+        request.setAttribute("divisionMap", divisionMap);
         request.setAttribute("employee", existingEmployee);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee/edit.jsp");
         try {
