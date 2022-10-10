@@ -70,7 +70,7 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void addEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        String name = request.getParameter("name");
+        String name = request.getParameter("employeeName");
         String dateOfBirth = request.getParameter("dateOfBirth");
         String idCard = request.getParameter("idCard");
         double salary = Double.parseDouble(request.getParameter("salary"));

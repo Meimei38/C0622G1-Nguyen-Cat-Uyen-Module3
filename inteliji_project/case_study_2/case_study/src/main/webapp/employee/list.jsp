@@ -180,7 +180,7 @@
             <input type="hidden" name="action" value="search">
             <div class="row px-0 mx-0">
                 <div class="col-3">
-                    <input type="text" name="searchName" class="form-control" placeholder="Name">
+                    <input type="text" name="searchName" class="form-control" placeholder="Name" >
                 </div>
                 <div class="col-3">
                     <input type="date" name="searchDateOfBirth" class="form-control" placeholder="Date Of Birth">
