@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface IEmployeeService {
     void addEmployee(Employee employee) throws SQLException;
-    
+    List<EmployeeDto> searchEmployee(String searchName, String searchDateOfBirth,String searchPositionId) throws SQLException;
+
     List<Employee> findAll();
 
     List<EmployeeDto> findAllDto();

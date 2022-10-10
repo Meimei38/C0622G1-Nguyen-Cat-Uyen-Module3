@@ -21,6 +21,12 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
+    public List<EmployeeDto> searchEmployee(String searchName, String searchDateOfBirth, String searchPositionId) throws SQLException {
+
+        return employeeRepo.searchEmployee(searchName,  searchDateOfBirth, searchPositionId);
+    }
+
+    @Override
     public List<Employee> findAll() {
         return employeeRepo.findAll();
     }

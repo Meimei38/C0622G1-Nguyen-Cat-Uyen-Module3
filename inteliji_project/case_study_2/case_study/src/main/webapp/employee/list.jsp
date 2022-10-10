@@ -88,8 +88,9 @@
     }
 
     footer {
-        margin: 0 20px 0 20px;
+        margin: 0 30px 0 30px;
         padding: 0;
+        width: 96%;
     }
 
     p.footer {
@@ -124,14 +125,14 @@
 
     h1 {
         text-align: center;
+        margin-bottom: 20px;
     }
 
-    #add {
+    #add, #submit {
         background-color: #046056;
         color: white;
         font-weight: bold;
         margin-bottom: 20px;
-        margin-left: 20px;
     }
 
     #add:hover {
@@ -143,6 +144,12 @@
         color: red;
         margin-bottom: 20px;
     }
+
+    #submit{
+        margin-right: 0;
+        width: 100%;
+    }
+
 
 </style>
 <body>
@@ -164,80 +171,106 @@
         </c:if>
     </div>
 
-    <div class="row">
-        <form action="/employee" method="get">
+    <div class="row d-flex" style="padding-left: 30px; padding-right: 30px">
+        <form action="/employee" method="get" style="width: 50%; float: left">
             <input type="hidden" name="action" value="add">
             <button class="btn" type="submit" id="add"> Add employee</button>
         </form>
-        <div class="main">
-            <table id="list" class="table">
-                <thead>
+        <form action="/employee" method="post" style="width:50%; margin-right: 0; padding-left: 80px">
+            <input type="hidden" name="action" value="search">
+            <div class="row px-0 mx-0">
+                <div class="col-3">
+                    <input type="text" name="searchName" class="form-control" placeholder="Name">
+                </div>
+                <div class="col-3">
+                    <input type="date" name="searchDateOfBirth" class="form-control" placeholder="Date Of Birth">
+                </div>
+                <div class="col-3">
+                    <select class="form-select" name="searchPositionId" >
+                        <option value="">Position</option>
+                        <option value=1> Lễ tân</option>
+                        <option value=2> Phục vụ</option>
+                        <option value=3> Chuyên viên</option>
+                        <option value=4> Giám sát</option>
+                        <option value=5> Quản lý</option>
+                        <option value=6> Giám đốc</option>
+                    </select>
+                </div>
+                <div class="col-3 px-0" style="right: 0">
+                    <button type="submit" class="btn" id="submit">Search</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="main">
+        <table id="list" class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date Of Birth</th>
+                <th>Id Card</th>
+                <th>Salary</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Position</th>
+                <th>Education Degree</th>
+                <th>Division</th>
+                <th> Edit</th>
+                <th> Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="employeeDto" items="${employeeDtoList}">
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Date Of Birth</th>
-                    <th>Id Card</th>
-                    <th>Salary</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Position</th>
-                    <th>Education Degree</th>
-                    <th>Division</th>
-                    <th> Edit</th>
-                    <th> Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="employeeDto" items="${employeeDtoList}">
-                    <tr>
-                        <td><c:out value="${employeeDto.id}"/></td>
-                        <td><c:out value="${employeeDto.name}"/></td>
-                        <td><c:out value="${employeeDto.dateOfBirth}"/></td>
-                        <td><c:out value="${employeeDto.idCard}"/></td>
-                        <td><c:out value="${employeeDto.salary}"/></td>
-                        <td><c:out value="${employeeDto.phoneNumber}"/></td>
-                        <td><c:out value="${employeeDto.email}"/></td>
-                        <td><c:out value="${employeeDto.address}"/></td>
-                        <td><c:out value="${employeeDto.position}"/></td>
-                        <td><c:out value="${employeeDto.educationDegree}"/></td>
-                        <td><c:out value="${employeeDto.division}"/></td>
-                        <td><a class="btn btn-primary" href="/employee?action=edit&id=${employeeDto.id}">Edit</a></td>
-                        <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#delete${employeeDto.id}">
-                                Delete
-                            </button>
-                            <div class="modal fade " id="delete${employeeDto.id}" tabindex="-1"
-                                 aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content bg-light">
-                                        <div class="modal-header bg-danger">
-                                            <h5 class="modal-title" id="exampleModalLabel_edit">Delete Employee</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body text-black">
-                                            <p>Bạn có muốn xóa <strong class="text-danger">${employeeDto.name}</strong>?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <a href="employee?action=delete&id=${employeeDto.id}"
-                                               class="btn btn-danger">Delete</a>
-                                        </div>
+                    <td><c:out value="${employeeDto.id}"/></td>
+                    <td><c:out value="${employeeDto.name}"/></td>
+                    <td><c:out value="${employeeDto.dateOfBirth}"/></td>
+                    <td><c:out value="${employeeDto.idCard}"/></td>
+                    <td><c:out value="${employeeDto.salary}"/></td>
+                    <td><c:out value="${employeeDto.phoneNumber}"/></td>
+                    <td><c:out value="${employeeDto.email}"/></td>
+                    <td><c:out value="${employeeDto.address}"/></td>
+                    <td><c:out value="${employeeDto.position}"/></td>
+                    <td><c:out value="${employeeDto.educationDegree}"/></td>
+                    <td><c:out value="${employeeDto.division}"/></td>
+                    <td><a class="btn btn-primary" href="/employee?action=edit&id=${employeeDto.id}">Edit</a></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#delete${employeeDto.id}">
+                            Delete
+                        </button>
+                        <div class="modal fade " id="delete${employeeDto.id}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-light">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title" id="exampleModalLabel_edit">Delete Employee</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        <p>Bạn có muốn xóa <strong class="text-danger">${employeeDto.name}</strong>?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <a href="employee?action=delete&id=${employeeDto.id}"
+                                           class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                </c:forEach>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
 </div>
 <footer class="footer mt-auto d-flex flex-wrap justify-content-between align-items-center">

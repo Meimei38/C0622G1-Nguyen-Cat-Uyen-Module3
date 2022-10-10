@@ -25,6 +25,10 @@ public class EmployeeRepo implements IEmployeeRepo {
             " where id=? and is_delete = 0";
     public static final String FIND_EMPLOYEE_BY_ID = "select * from employee where id=? and is_delete=0;";
     public static final String DELETE_EMPLOYEE = "UPDATE `employee` set `is_delete`=1 where id=?";
+    private static final String SEARCH = "select employee.*, position.name as position_name, education_degree.name as education_degree_name, division.name as division_name from employee\n" +
+            "join position on employee.position_id = position.id\n" +
+            "join education_degree on employee.education_degree_id = education_degree.id\n" +
+            "join division on employee.division_id = division.id where employee.name like ? and employee.date_of_birth like? and employee.position_id like ? and employee.is_delete =0 order by employee.id";
 
 
     @Override
@@ -168,5 +172,37 @@ public class EmployeeRepo implements IEmployeeRepo {
         }
 
         return rowUpdated;
+    }
+
+    @Override
+    public List<EmployeeDto> searchEmployee(String searchName, String searchDateOfBirth, String searchPositionId) {
+        List<EmployeeDto> employees = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH);
+            preparedStatement.setString(1,"%"+searchName+"%");
+            preparedStatement.setString(2,"%"+searchDateOfBirth+"%");
+            preparedStatement.setString(3,"%"+searchPositionId+"%");
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String dateOfBirth = rs.getString("date_of_birth");
+                String idCard = rs.getString("id_card");
+                Double salary = Double.valueOf(rs.getString("salary"));
+                String phoneNumber = rs.getString("phone_number");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                String position = rs.getString("position_name");
+                String educationDegree = rs.getString("education_degree_name");
+                String division = rs.getString("division_name");
+                String username = rs.getString("username");
+                employees.add(new EmployeeDto(id, name, dateOfBirth, idCard, salary, phoneNumber, email, address, position, educationDegree, division, username));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return employees;
     }
 }

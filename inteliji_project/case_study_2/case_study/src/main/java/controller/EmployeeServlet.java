@@ -36,12 +36,30 @@ public class EmployeeServlet extends HttpServlet {
                 case "edit":
                     editEmployee(request, response);
                     break;
+                case "search":
+                    searchEmployee(request, response);
+                    break;
                 default:
                     findAllDto(request, response);
 
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    private void searchEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        String searchName = request.getParameter("searchName");
+        String searchDateOfBirth = request.getParameter("searchDateOfBirth");
+        String searchPositionId = request.getParameter("searchPositionId");
+        List<EmployeeDto> employeeList = employeeService.searchEmployee(searchName,searchDateOfBirth,searchPositionId);
+        request.setAttribute("employeeDtoList",employeeList);
+        try {
+            request.getRequestDispatcher("employee/list.jsp").forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

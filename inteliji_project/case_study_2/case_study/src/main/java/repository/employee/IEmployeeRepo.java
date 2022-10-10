@@ -17,4 +17,5 @@ public interface IEmployeeRepo {
 
     boolean editEmployee(Employee employee) throws SQLException;
 
+    List<EmployeeDto> searchEmployee(String searchName, String searchDateOfBirth, String searchPositionId);
 }
